@@ -1,14 +1,5 @@
 package com.photoeditor;
 
-import android.content.Context;
-import android.net.Uri;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
@@ -89,9 +80,6 @@ public class NewsList {
                             }
                         }
                     }
-
-                    /*TextView debugText = findViewById(R.id.textViewww);
-                    debugText.setText(" title: " + title + "      image: " + image + "     description:" + description);*/
 
                     NewsList news = new NewsList(title, image);
                     newsList.add(news);

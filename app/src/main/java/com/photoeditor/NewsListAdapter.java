@@ -1,9 +1,6 @@
 package com.photoeditor;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +8,29 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.squareup.picasso.Picasso;
 
-import java.net.URL;
 import java.util.ArrayList;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
+import jp.wasabeef.picasso.transformations.GrayscaleTransformation;
+import jp.wasabeef.picasso.transformations.gpu.SepiaFilterTransformation;
 
 public class NewsListAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<NewsList> newsArrayList;
+    private Integer stateIMG = 0;
 
-    public NewsListAdapter(Context context, ArrayList<NewsList> newsArrayList) {
+    public NewsListAdapter(Context context, ArrayList<NewsList> newsArrayList, Integer stateIMG) {
 
         this.context = context;
         this.newsArrayList = newsArrayList;
+        this.stateIMG = stateIMG;
+    }
+
+    public int getStateIMG() {
+        return stateIMG;
     }
 
     @Override
@@ -73,7 +80,13 @@ public class NewsListAdapter extends BaseAdapter {
         }
 
         holder.title.setText(newsArrayList.get(position).getHeader());
-        Picasso.get().load(newsArrayList.get(position).getImageLink()).into(holder.image);
+        if (stateIMG == 0) {
+            Picasso.get().load(newsArrayList.get(position).getImageLink()).into(holder.image);
+        } else if (stateIMG == 1) {
+            Picasso.get().load(newsArrayList.get(position).getImageLink()).transform(new GrayscaleTransformation()).into(holder.image);
+        } else if (stateIMG == 2) {
+            Picasso.get().load(newsArrayList.get(position).getImageLink()).transform(new BlurTransformation(context)).into(holder.image);
+        }
 
         return convertView;
     }
@@ -84,9 +97,7 @@ public class NewsListAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-
         protected TextView title;
         protected ImageView image;
-
     }
 }

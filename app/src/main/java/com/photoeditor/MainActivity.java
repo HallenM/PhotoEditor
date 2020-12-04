@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final EditText urlStr = findViewById(R.id.editTextURL);
-        Button btnShow = (Button) findViewById(R.id.btnShowNews);
+        Button btnShow = findViewById(R.id.btnShowNews);
 
         btnShow.setOnClickListener(new View.OnClickListener() {
             @Override
